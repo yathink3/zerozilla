@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useCartStore } from "../store/hook";
-import { useCartDispatch } from "../store/hook";
+import { useCartStore, useCartDispatch } from "../store/hook";
 
 const Cart = () => {
   const { removeFromCart } = useCartDispatch();
@@ -14,13 +13,15 @@ const Cart = () => {
           <span>cart is empty</span>
         </div>
       ) : (
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-4 gap-3 pl-3 pr-3">
           {items.map((data, ind) => (
             <div key={ind} className="justify-center">
-              <img
-                className="p-1 rounded transition duration-200 text-gray-100 object-contain h-48 w-full"
-                src={data.image}
-              />
+              <Link to={`/product-details/${data.id}`}>
+                <img
+                  className="p-1 rounded transition duration-200 text-gray-100 object-contain h-48 w-full"
+                  src={data.image}
+                />
+              </Link>
               <span>category:{data.category}</span>
               {/* <span>description:{data.description}</span> */}
               <span>price:{data.price}</span>
@@ -30,9 +31,14 @@ const Cart = () => {
                   <span>rate:{data.rating.rate}</span>
                 </div>
               )}
-              <Link to={`/product-details/${data.id}`}>View product</Link>
-              <button onClick={() => removeFromCart(data)}>
-                Remove from CART {data.count > 0 && data.count + 1}
+              <div>
+                <Link to={`/product-details/${data.id}`}>View product</Link>{" "}
+              </div>
+              <button
+                className=" text-xs p-1 rounded transition duration-200 text-gray-600 hover:text-white focus:text-white focus:outline-none focus:bg-gray-700 hover:bg-gray-700 "
+                onClick={() => removeFromCart(data)}
+              >
+                REMOVE FROM CART {data.count > 0 && data.count + 1}
               </button>
             </div>
           ))}

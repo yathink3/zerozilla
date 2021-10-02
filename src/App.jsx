@@ -41,6 +41,9 @@ function App() {
               <Link to={`/home`}> HOME </Link>
             </div>
             <CartData />
+            <div className="p-1 rounded transition duration-200 text-gray-100 focus:outline-none focus:bg-gray-700 hover:bg-gray-700 ">
+              <Link to={`/my-profile`}> Profile </Link>
+            </div>
           </div>
         </div>
       </div>

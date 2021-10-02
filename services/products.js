@@ -1,6 +1,7 @@
 const BASE_URL = "https://fakestoreapi.com/products";
 
 const apiHandler = async (url, fetchApiName) => {
+  if (fetchApiName) fetchApiName = url;
   try {
     const config = {
       method: "GET",
@@ -38,4 +39,8 @@ export const getAllProdByCategory = async ({ category }) => {
 
 export const getSingleProduct = async ({ id }) => {
   return await apiHandler(`${BASE_URL}/${id}`, "getSingleProduct");
+};
+
+export const getAllProducts = async () => {
+  return await apiHandler(`${BASE_URL}`, "getAllProducts");
 };

@@ -2,13 +2,16 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getSingleProduct } from "../../services/products";
 import Loader from "react-loader-spinner";
-import { useCartDispatch } from "../store/hook";
+import { useCartDispatch, useCartStore } from "../store/hook";
 
 const ProductDetails = (props) => {
   const { id } = props.match.params;
   const [data, setData] = useState(null);
   const [loader, setLoader] = useState(false);
-  const { addToCart } = useCartDispatch();
+  const { addToCart, removeFromCart } = useCartDispatch();
+  const { items } = useCartStore();
+
+  const cartFind = items.find((el) => el.id == data?.id);
 
   useEffect(async () => {
     setLoader(true);
@@ -49,7 +52,21 @@ const ProductDetails = (props) => {
               <span>rate:{data.rating.rate}</span>
             </div>
           )}
-          <button onClick={() => addToCart(data)}>ADD TO CART</button>
+          <button
+            className=" text-sm p-1 rounded transition duration-200 text-gray-600 hover:text-white focus:text-white focus:outline-none focus:bg-gray-700 hover:bg-gray-700 "
+            onClick={() => addToCart(data)}
+          >
+            ADD TO CART
+          </button>
+
+          {cartFind && (
+            <button
+              className=" text-sm p-1 rounded transition duration-200 text-gray-600 hover:text-white focus:text-white focus:outline-none focus:bg-gray-700 hover:bg-gray-700 "
+              onClick={() => removeFromCart(cartFind)}
+            >
+              REMOVE FROM CART {cartFind.count > 0 && cartFind.count + 1}
+            </button>
+          )}
         </div>
       )}
     </div>

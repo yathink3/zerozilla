@@ -34,7 +34,7 @@ const Category = (props) => {
           <span>empty category</span>
         </div>
       ) : (
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-4 gap-3 pl-3 pr-3">
           {data.map((prod, ind) => (
             <Link key={ind} to={`/product-details/${prod.id}`}>
               <div className="justify-center">
