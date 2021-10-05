@@ -1,33 +1,26 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = { items: [], itemLength: 0 };
+const initialState = { items: [] };
 
 const cartSlice = createSlice({
-  name: "cartData",
+  name: 'cartData',
   initialState,
   reducers: {
     addToCart: (state, action) => {
       if (action.payload) {
-        const valIndex = state.items.findIndex(
-          (el) => el.id === action.payload.id
-        );
-        if (valIndex !== -1) {
-          state.items[valIndex].count = (state.items[valIndex].count || 0) + 1;
-        } else state.items.push(action.payload);
-        state.itemLength++;
+        const valIndex = state.items.findIndex(el => el.id === action.payload.id);
+        if (valIndex === -1) {
+          action.payload.count = 1;
+          state.items.push(action.payload);
+        } else state.items[valIndex].count++;
       }
     },
     removeFromCart: (state, action) => {
       if (action.payload) {
-        const valIndex = state.items.findIndex(
-          (el) => el.id === action.payload.id
-        );
+        const valIndex = state.items.findIndex(el => el.id === action.payload.id);
         if (valIndex !== -1) {
-          if (state.items[valIndex].count == 0) state.items.splice(valIndex, 1);
-          else
-            state.items[valIndex].count =
-              (state.items[valIndex].count || 1) - 1;
-          if (state.itemLength != 0) state.itemLength--;
+          if (state.items[valIndex].count == 1) state.items.splice(valIndex, 1);
+          else state.items[valIndex].count--;
         }
       }
     },

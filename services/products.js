@@ -1,14 +1,11 @@
-const BASE_URL = "https://fakestoreapi.com/products";
+const BASE_URL = 'https://fakestoreapi.com/products';
 
 const apiHandler = async (url, fetchApiName) => {
-  if (fetchApiName) fetchApiName = url;
+  if (!fetchApiName) fetchApiName = url;
   try {
     const config = {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
+      method: 'GET',
+      headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
     };
     const response = await fetch(url, config);
     const data = await response.json();
@@ -27,20 +24,17 @@ const apiHandler = async (url, fetchApiName) => {
 };
 
 export const getAllCategories = async () => {
-  return await apiHandler(`${BASE_URL}/categories`, "getAllCategories");
+  return await apiHandler(`${BASE_URL}/categories`, 'getAllCategories');
 };
 
 export const getAllProdByCategory = async ({ category }) => {
-  return await apiHandler(
-    `${BASE_URL}/category/${category}`,
-    "getAllProdByCategory"
-  );
+  return await apiHandler(`${BASE_URL}/category/${category}`, 'getAllProdByCategory');
 };
 
 export const getSingleProduct = async ({ id }) => {
-  return await apiHandler(`${BASE_URL}/${id}`, "getSingleProduct");
+  return await apiHandler(`${BASE_URL}/${id}`, 'getSingleProduct');
 };
 
 export const getAllProducts = async () => {
-  return await apiHandler(`${BASE_URL}`, "getAllProducts");
+  return await apiHandler(`${BASE_URL}`, 'getAllProducts');
 };
